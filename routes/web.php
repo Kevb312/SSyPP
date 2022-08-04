@@ -13,6 +13,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
+|////////////////////////////
+| Rutas publicas
+|///////////////////////////
+| Rutas accesibles a todos los usuarios
+|
+*/
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+/*
+|/////////////////////////
+| Rutas de administración
+|///////////////////////// 
+| Solo se pueden acceder a estas rutas si estas logueado
+*/
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('admin', 'Admin\HomeController@index')->name('HomeControllerAdmin');
+/* usuarios*/
+Route::get('users', 'Admin\UserController@getUsers')->name('getUsers');
