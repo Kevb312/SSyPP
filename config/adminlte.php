@@ -252,10 +252,26 @@ return [
             'icon'        => 'fas fa-home',
             
         ],
+        ['header' => 'Catalogos en el sistema'],
         [
             'text'        => 'Usuarios',
             'route'         => 'getUsers',
             'icon'        => 'fas fa-fw fa-user',
+            //'label'       => 4,
+            //'label_color' => 'success',
+        ],
+        [
+            'text'        => 'Roles',
+            'route'         => 'getRoles',
+            'icon'        => 'fas fa-fw fa-sitemap',
+            //'label'       => 4,
+            //'label_color' => 'success',
+        ],
+        ['header' => 'Catalogos generales'],
+        [
+            'text'        => 'Programas',
+            'route'         => 'getProgramas',
+            'icon'        => 'fas fa-fw  fa-graduation-cap',
             //'label'       => 4,
             //'label_color' => 'success',
         ],

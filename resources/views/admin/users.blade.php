@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Categorias')
+@section('title', 'Usuarios')
 
 @section('content_header')
     <h1>Usuarios</h1>
@@ -21,7 +21,8 @@
                 <th>Usuario</th>
                 <th>Email</th>
                 <th>Rol</th>
-                <th>Acciones</th>
+                <th>Editar</th>
+                <th>Borrar</th>
             </tr>
         </thead>
         <tbody>
@@ -29,10 +30,13 @@
             <tr>
                 <td>{{$user->id}}</td>
                 <td id="nameUser{{$user->id}}" value="{{$user->name}}">{{$user->name}}</td>
-                <td>{{$user->email}}</td>
-                <td>{{$user->Nombre_rol}}</td>
+                <td id="nameEmail{{$user->id}}" value="{{$user->email}}">{{$user->email}}</td>
+                <td>{{$user->Nombre_Rol}}</td>
                 <td>
                     <a href="#" data-target="#EditModal"  data-toggle="modal" onclick="recibir({{$user->id}});">Editar</a>
+                </td>
+                <td>
+                    <a href="{{route('deleteUser', $user->id)}}" >Borrar</a>
                 </td>
             </tr>
             @endforeach
@@ -43,12 +47,13 @@
                 <th>Usuario</th>
                 <th>Email</th>
                 <th>Rol</th>
-                <th>Acciones</th>
+                <th>Editar</th>
+                <th>Borrar</th>
             </tr>
         </tfoot>
     </table>
 
-    <!-- Modal -->
+    <!-- Modal Nuevo usuario -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -58,37 +63,37 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" action="">
+                <form method="post" action="{{route('createUser')}}">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="InputName">Nombre usuario</label>
-                            <input type="text" class="form-control" id="InputName" name="InputName" aria-describedby="nameHelp" placeholder="Ingrese el nombre de usuario">
+                            <input type="text" class="form-control" id="InputName" name="InputName" aria-describedby="nameHelp" placeholder="Ingrese el nombre de usuario" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="InputName">Email</label>
-                            <input type="email" class="form-control" id="InputEmail" name="InputEmail" aria-describedby="emailHelp" placeholder="Ingrese el correo electronico">
+                            <label for="InputEmail">Email</label>
+                            <input type="email" class="form-control" id="InputEmail" name="InputEmail" aria-describedby="emailHelp" placeholder="Ingrese el correo electronico" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="InputName">Password</label>
-                            <input type="password" class="form-control" id="InputPass" name="InputPass" aria-describedby="passHelp" placeholder="Ingrese un password">
+                            <label for="InputPass">Password</label>
+                            <input type="password" class="form-control" id="InputPass" name="InputPass" aria-describedby="passHelp" placeholder="Ingrese un password" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="InputName">Rol</label>
-                            <select class="form-control" name="InputRol" id="InputRol">
+                            <label for="InputRol">Rol</label>
+                            <select class="form-control" name="InputRol" id="InputRol" required>
+                               
                                 @foreach($roles as $rol)
-                                    <option value={{$rol->ID_rol}}> {{$rol->Nombre_rol}} </option>
-
+                                    <option value={{$rol->ID_rol}}> {{$rol->Nombre_Rol}} </option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Crear usuario</button>
                     </div>
                     
                 </form>
@@ -101,10 +106,12 @@
         function recibir(id)
         {
             var name = document.getElementById("nameUser"+id).innerHTML;
+            var nameEmail = document.getElementById("nameEmail"+id).innerHTML;
 
             document.getElementById("IDUsuario").value = id;
             document.getElementById("IDUsuariohidden").value = id;
             document.getElementById("InputNameEdit").value = name;
+            document.getElementById("InputEmailEdit").value = nameEmail;
         } 
     </script>
 
@@ -118,20 +125,33 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" action="">
+                <form method="post" action="{{route('updateUser')}}">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="hidden" class="form-control" id="IDUsuariohidden" name="IDUsuariohidden" aria-describedby="emailHelp" value="">
+                            <input type="hidden" class="form-control" id="IDUsuariohidden" name="IDUsuariohidden" aria-describedby="idHelp" value="">
                             
                             <label for="IDUsuario">ID usuario</label>
-                            <input type="text" class="form-control" id="IDUsuario" name="IDUsuario" aria-describedby="emailHelp" value="" disabled>
+                            <input type="text" class="form-control" id="IDUsuario" name="IDUsuario" aria-describedby="idHelp" value="" disabled>
                         </div>
                         <div class="form-group">
-                        <label for="InputNameEdit">Nombre usuario</label>
-                        <input type="text" value="" class="form-control" id="InputNameEdit" name="InputNameEdit" aria-describedby="emailHelp" placeholder="Ingrese el nombre de la categoría">
+                            <label for="InputNameEdit">Nombre usuario</label>
+                            <input type="text" value="" class="form-control" id="InputNameEdit" name="InputNameEdit" aria-describedby="nameHelp" placeholder="Ingrese el nombre de la categoría" required>
                         </div>
-                    
+
+                        <div class="form-group">
+                            <label for="InputEmailEdit">Email</label>
+                            <input type="text" value="" class="form-control" id="InputEmailEdit" name="InputEmailEdit" aria-describedby="emailHelp" placeholder="Ingrese el nombre de la categoría" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="InputRolEdit">Email</label>
+                            <select class="form-control" name="InputRolEdit" id="InputRolEdit" required>
+                                @foreach($roles as $rol)
+                                    <option value={{$rol->ID_rol}}> {{$rol->Nombre_Rol}} </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

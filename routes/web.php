@@ -24,6 +24,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+#Index
+Route::get('', 'PublicController@index')->name('index');
+#licenciaturas
+Route::get('/licenciaturas', 'PublicController@viewLicenciaturas')->name('licenciaturas');
+
+
 
 /*
 |/////////////////////////
@@ -35,7 +41,47 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('admin', 'Admin\HomeController@index')->name('HomeControllerAdmin');
-/* usuarios*/
-Route::get('users', 'Admin\UserController@getUsers')->name('getUsers');
+
+
+/*
+|-----------------------
+|   USUARIOS
+|-----------------------
+*/
+#Crea nuevo usuario
+Route::post('admin/create-user', 'Admin\UserController@createUser')->name('createUser');
+#Editar usuario
+Route::post('admin/update-user', 'Admin\UserController@updateUser')->name('updateUser');
+#Borrar usuario
+Route::get('admin/delete-user/{id}', 'Admin\UserController@deleteUser')->name('deleteUser');
+#Trae todos los usuarios
+Route::get('admin/users', 'Admin\UserController@getUsers')->name('getUsers');
+
+
+/*
+|------------------------
+|   ROLES
+|------------------------
+*/
+#Crea nuevo rol
+Route::post('admin/create-rol', 'Admin\RolesController@createRol')->name('createRol');
+#Editar rol
+Route::post('admin/update-rol', 'Admin\RolesController@updateRol')->name('updateRol');
+#Trae todos los roles en el sistema
+Route::get('admin/roles', 'Admin\RolesController@getRoles')->name('getRoles');
+
+
+/*
+|------------------------
+|   PROGRAMAS
+|------------------------
+*/
+#Crea nuevo programa
+Route::post('admin/create-programa', 'Admin\ProgramasController@createPrograma')->name('createPrograma');
+#Editar programa
+Route::post('admin/update-programa', 'Admin\ProgramasController@updatePrograma')->name('updatePrograma');
+#Borrar un programa
+Route::get('admin/delete-programa/{id}', 'Admin\ProgramasController@deletePrograma')->name('deletePrograma');
+#Trae todos los programas en el sistema
+Route::get('admin/programas', 'Admin\ProgramasController@getProgramas')->name('getProgramas');
