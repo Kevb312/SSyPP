@@ -85,3 +85,12 @@ Route::post('admin/update-programa', 'Admin\ProgramasController@updatePrograma')
 Route::get('admin/delete-programa/{id}', 'Admin\ProgramasController@deletePrograma')->name('deletePrograma');
 #Trae todos los programas en el sistema
 Route::get('admin/programas', 'Admin\ProgramasController@getProgramas')->name('getProgramas');
+
+
+/*
+|----------------------
+|   DEPENDENCIAS
+|----------------------
+*/
+#Trae todos las dependencias en el sistema
+Route::get('admin/dependencias', 'Admin\DependenciasController@getDependencias')->name('getDependencias');

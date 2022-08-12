@@ -52,7 +52,7 @@ class ProgramasController extends Controller
     #Metodo que actualiza un programa
     public function updatePrograma(Request $request){
         try{
-            if(is_numeric($request->InputNameEdit)){
+            if(strlen($request->InputNumEdit) <= 10){
                 Programa::where("ID_programa", $request->IDhidden)
                 ->update([
                     'Numero' => $request->InputNumEdit,

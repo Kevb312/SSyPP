@@ -264,16 +264,17 @@ return [
             'text'        => 'Roles',
             'route'         => 'getRoles',
             'icon'        => 'fas fa-fw fa-sitemap',
-            //'label'       => 4,
-            //'label_color' => 'success',
         ],
         ['header' => 'Catalogos generales'],
         [
             'text'        => 'Programas',
             'route'         => 'getProgramas',
             'icon'        => 'fas fa-fw  fa-graduation-cap',
-            //'label'       => 4,
-            //'label_color' => 'success',
+        ],
+        [
+            'text'        => 'Dependencias',
+            'route'         => 'getDependencias',
+            'icon'        => 'fas fa-fw   fa-share-alt-square',
         ],
         /*['header' => 'account_settings'],
         [
