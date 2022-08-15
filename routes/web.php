@@ -93,4 +93,10 @@ Route::get('admin/programas', 'Admin\ProgramasController@getProgramas')->name('g
 |----------------------
 */
 #Trae todos las dependencias en el sistema
-Route::get('admin/dependencias', 'Admin\DependenciasController@getDependencias')->name('getDependencias');
+Route::get('admin/dependencias', 'Admin\DependenciasController@getDependencias')->name('getDependencias'); 
+#Crea nueva dependencia
+Route::post('admin/create-dependencia', 'Admin\DependenciasController@createDependencia')->name('createDependencia');
+#Editar dependencia
+Route::post('admin/update-dependencia', 'Admin\DependenciasController@updateDependencia')->name('updateDependencia');
+#Borrar una dependencia
+Route::get('admin/delete-dependencia/{id}', 'Admin\DependenciasController@deleteDependencia')->name('deleteDependencia');

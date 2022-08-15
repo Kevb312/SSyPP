@@ -27,21 +27,28 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($programas as $programa)
+        @foreach($dependencias as $dependencia)
         <tr>
-            <td>{{$programa->ID_programa}}</td>
-            <td id="numeroPrograma{{$programa->ID_programa}}">{{$programa->Numero}}</td>
-            <td id="namePrograma{{$programa->ID_programa}}" value="{{$programa->Nombre_pro}}">{{$programa->Nombre_pro}}</td>
-            <td id="ss_ppPrograma{{$programa->ID_programa}}">{{$programa->ss_pp}}</td>
-            <td id="antiguedadPrograma{{$programa->ID_programa}}">{{$programa->Antiguedad}}</td>
-            <td id="perfilPrograma{{$programa->ID_programa}}">{{$programa->Perfil}}</td>
-            <td id="Num_estadPrograma{{$programa->ID_programa}}">{{$programa->Num_estad}}</td>
-            <td>{{$programa->created_at}}</td>
+            <td>{{$dependencia->ID_dep}}</td>
+
+            <td id="nombreDep{{$dependencia->ID_dep}}">
+                {{$dependencia->Nom_dep}}
+            </td>
+
+            <td id="nombreSecre{{$dependencia->ID_dep}}" value="{{$dependencia->Nom_secretaria}}"> 
+                {{$dependencia->Nom_secretaria}}    
+            </td>
+
+            <td id="nombreSub{{$dependencia->ID_dep}}" value="{{$dependencia->Nom_sub}}">       
+                {{$dependencia->Nom_sub}}           
+            </td>
+
+            <td>{{$dependencia->created_at}}</td>
             <td>
-                <a href="#" data-target="#EditModal"  data-toggle="modal" onclick="recibir({{$programa->ID_programa}});">Editar</a>
+                <a href="#" data-target="#EditModal"  data-toggle="modal" onclick="recibir({{$dependencia->ID_dep}});">Editar</a>
             </td>
             <td>
-                <a href="{{route('deletePrograma', $programa->ID_programa)}}" >Borrar</a>
+                <a href="{{route('deleteDependencia', $dependencia->ID_dep)}}" >Borrar</a>
             </td>
         </tr>
         @endforeach
@@ -59,31 +66,104 @@
     </tfoot>
 </table>
 
+    <!-- Modal nueva dependencia-->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Nueva dependencia</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" action="{{route('createDependencia')}}">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="InputNombre">Nombre dependencia</label>
+                            <input type="text" class="form-control"  id="InputNombre" name="InputNombre" placeholder="Ingrese el nombre de la dependencia" required style="text-transform:uppercase">
+                        </div>
 
+                        <div class="form-group">
+                            <label for="InputSecretaria">Secretaría</label>
+                            <input type="text" class="form-control" id="InputSecretaria" name="InputSecretaria" placeholder="Ingrese el nombre de la secretaria" required style="text-transform:uppercase">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="InputSubSecre">Sub Secretaría</label>
+                            <input type="text" class="form-control" id="InputSubSecre" name="InputSubSecre" placeholder="Ingrese el nombre de la sub secretaría" required style="text-transform:uppercase">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Crear Dependencia</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
 
 <!--Js -->
 <script type="text/javascript">
     function recibir(id)
     {
-        var numero = document.getElementById("numeroPrograma"+id).innerHTML;
-        var name = document.getElementById("namePrograma"+id).innerHTML;
-        var ss_ppPrograma = document.getElementById("ss_ppPrograma"+id).innerHTML;
-        var antiguedadPrograma = document.getElementById("antiguedadPrograma"+id).innerHTML;
-        var perfilPrograma = document.getElementById("perfilPrograma"+id).innerHTML;
-        var Num_estadPrograma = document.getElementById("Num_estadPrograma"+id).innerHTML;
+        var nombre = document.getElementById("nombreDep"+id).innerHTML;
+        var nombreSecre = document.getElementById("nombreSecre"+id).innerHTML;
+        var nombreSub = document.getElementById("nombreSub"+id).innerHTML;
 
-        document.getElementById("IDPrograma").value = id;
-        document.getElementById("InputNumEdit").value = numero;
+        document.getElementById("IDDependencia").value = id;
         document.getElementById("IDhidden").value = id;
-        document.getElementById("InputNameEdit").value = name;
-        document.getElementById("InputSsppEdit").value = ss_ppPrograma;
-        document.getElementById("InputAntiguedadEdit").value = antiguedadPrograma;
-        document.getElementById("InputPerfilEdit").value = perfilPrograma;
-        document.getElementById("InputNumEstEdit").value = Num_estadPrograma;
+        document.getElementById("InputNameEdit").value = nombre;
+        document.getElementById("InputSecreEdit").value = nombreSecre;
+        document.getElementById("InputSubSecreEdit").value = nombreSub;
     } 
 </script>
 
+    <!-- Modal Edit -->
+    <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Editar dependencia</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" action="{{route('updateDependencia')}}">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" id="IDhidden" name="IDhidden"  value="">
+                            
+                            <label for="IDDependencia">ID dependencia</label>
+                            <input type="text" class="form-control" id="IDDependencia" name="IDDependencia" value="" disabled>
+                        </div>
 
+                        <div class="form-group">
+                            <label for="InputNameEdit">Nombre de la dependencia</label>
+                            <input type="text" value="" class="form-control" id="InputNameEdit" name="InputNameEdit"  placeholder="Ingrese el nombre de la categoría" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="InputSecreEdit">Nombre del programa</label>
+                            <input type="text" value="" class="form-control" id="InputSecreEdit" name="InputSecreEdit" placeholder="Ingrese el nombre de la categoría" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="InputSubSecreEdit">Nombre subsecretaria</label>
+                            <input type="text" value="" class="form-control" id="InputSubSecreEdit" name="InputSubSecreEdit" placeholder="Ingrese el nombre de la categoría" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('css')
