@@ -276,6 +276,16 @@ return [
             'route'         => 'getDependencias',
             'icon'        => 'fas fa-fw   fa-share-alt-square',
         ],
+        [
+            'text'        => 'Carreras',
+            'route'         => 'getCarreras',
+            'icon'        => 'fas fa-fw   fa-share-alt-square',
+        ],
+        [
+            'text'        => 'Alumnos',
+            'route'         => 'getAlumnos',
+            'icon'        => 'fas fa-fw   fa-share-alt-square',
+        ],
         /*['header' => 'account_settings'],
         [
             'text' => 'profile',

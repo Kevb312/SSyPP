@@ -28,8 +28,8 @@ Route::get('/', function () {
 Route::get('', 'PublicController@index')->name('index');
 #licenciaturas
 Route::get('/licenciaturas', 'PublicController@viewLicenciaturas')->name('licenciaturas');
-
-
+#Quejas y comentarios
+Route::get('/quejas-comentarios', 'PublicController@viewQuejasComentarios')->name('quejasComentarios');
 
 /*
 |/////////////////////////
@@ -100,3 +100,30 @@ Route::post('admin/create-dependencia', 'Admin\DependenciasController@createDepe
 Route::post('admin/update-dependencia', 'Admin\DependenciasController@updateDependencia')->name('updateDependencia');
 #Borrar una dependencia
 Route::get('admin/delete-dependencia/{id}', 'Admin\DependenciasController@deleteDependencia')->name('deleteDependencia');
+
+
+/*
+    CARRERAS
+*/
+#Trae todas las carreras en el sistema
+Route::get('admin/carreras', 'Admin\CarrerasController@getCarreras')->name('getCarreras');
+#Crea nueva carrera
+Route::post('admin/create-carrera', 'Admin\CarrerasController@createCarrera')->name('createCarrera');
+#Editar dependencia
+Route::post('admin/update-carrera', 'Admin\CarrerasController@updateCarrera')->name('updateCarrera');
+#Borrar una carrera
+Route::get('admin/delete-carrera/{id}', 'Admin\CarrerasController@deleteCarrera')->name('deleteCarrera');
+
+
+/* 
+    ALUMNOS
+*/
+
+#Trae todas los alumnos en el sistema
+Route::get('admin/alumnos', 'Admin\AlumnosController@getAlumnos')->name('getAlumnos');
+#Crea nuevo alumno
+Route::post('admin/create-alumno', 'Admin\AlumnosController@createAlumno')->name('createAlumno');
+#Editar alumno
+Route::post('admin/update-alumno', 'Admin\AlumnosController@updateAlumno')->name('updateAlumno');
+#Borrar una carrera
+Route::get('admin/delete-alumno/{id}', 'Admin\AlumnosController@deleteAlumno')->name('deleteAlumno');
