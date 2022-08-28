@@ -46,7 +46,7 @@
 
             <td>{{$alumno->created_at}}</td>
 
-            <td></td>
+            <td> <a href="{{asset('public/docs/'.$alumno->Documentos)}}" target="_blank"> Ver documento</a>  </td>
             <td>
                 <a href="#" data-target="#EditModal"  data-toggle="modal" onclick="recibir({{$alumno->ID_alum}});">Editar</a>
             </td>
@@ -79,7 +79,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" action="{{route('createAlumno')}}">
+                <form method="post" action="{{route('createAlumno')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
@@ -89,7 +89,7 @@
 
                         <div class="form-group">
                             <label for="InputFacultad">Documentos</label>
-                            <input type="file" class="form-control"  id="inputDocumentos" name="inputDocumentos" >
+                            <input type="file" class="form-control"  id="inputDocumentos" name="inputDocumentos" accept="application/pdf">
 
                         </div>
 
@@ -152,7 +152,7 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" action="{{route('updateAlumno')}}">
+                <form method="post" action="{{route('updateAlumno')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
@@ -169,7 +169,7 @@
 
                         <div class="form-group">
                             <label for="InputDocs">Documentos</label>
-                            <input type="file" class="form-control"  id="InputDocs" name="InputDocs" >
+                            <input type="file" class="form-control"  id="InputDocs" name="InputDocs" accept="application/pdf">
 
                         </div>
 

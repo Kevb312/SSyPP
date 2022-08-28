@@ -37,13 +37,26 @@ class AlumnosController extends Controller
         #Sino existe entonces creamos al usuario
         try{
             if($verificarAlumno <= 0){
+                #dd($request->file('inputDocumentos'));
+                #if($request->file('inputDocumentos')){
+                    
+                    $file= $request->file('inputDocumentos'); #obtenemos la nueva imagen
+                    $filename= date('YmdHi').$file->getClientOriginalName(); #Renombramos la imagen con la fecha como nombre
+                    $file-> move(public_path('public/docs'), $filename); #Movemos la imagen
+                #}else {
+                #    return redirect()->route('getAlumnos');
+                #}
+                
                 Alumno::create([
                     'Nom_alum' => strtoupper($request->InputNombreAlumno),
-                    'Documentos' => strtoupper($request->inputDocumentos),
+                    'Documentos' => strtoupper($filename),
                     'Fk_ID_dependencia' => strtoupper($request->dependenciaId),
                     'Fk_ID_carreras' => strtoupper($request->carrerasId)
                 ]);
                 return redirect()->route('getAlumnos');
+                
+
+                
             }
             #Si ya existe simplemente redirigimos
             else if($verificarAlumno > 0){
@@ -64,13 +77,30 @@ class AlumnosController extends Controller
     public function updateAlumno(Request $request){
         try{
 
-            Alumno::where("ID_alum", $request->IDhidden)
-            ->update([
-                'Nom_alum' => strtoupper($request->InputNombreAlumnoEdit),
-                'Documentos' => strtoupper($request->InputDocs),
-                'Fk_ID_dependencia' => strtoupper($request->InputDependenciaEdit),
-                'Fk_ID_carreras' => strtoupper($request->InputCarreraEdit)
-            ]);
+            if($request->file('InputDocs') != ""){
+                $file= $request->file('InputDocs'); #obtenemos la nueva imagen
+                $filename= date('YmdHi').$file->getClientOriginalName(); #Renombramos la imagen con la fecha como nombre
+                $file-> move(public_path('public/docs'), $filename); #Movemos la imagen
+
+                Alumno::where("ID_alum", $request->IDhidden)
+                ->update([
+                    'Nom_alum' => strtoupper($request->InputNombreAlumnoEdit),
+                    'Documentos' => $filename,
+                    'Fk_ID_dependencia' => strtoupper($request->InputDependenciaEdit),
+                    'Fk_ID_carreras' => strtoupper($request->InputCarreraEdit)
+                ]);
+
+                
+            }else{
+                Alumno::where("ID_alum", $request->IDhidden)
+                ->update([
+                    'Nom_alum' => strtoupper($request->InputNombreAlumnoEdit),
+                    'Fk_ID_dependencia' => strtoupper($request->InputDependenciaEdit),
+                    'Fk_ID_carreras' => strtoupper($request->InputCarreraEdit)
+                ]);
+                
+            }
+
             return redirect()->route('getAlumnos');
 
             
