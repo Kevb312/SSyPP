@@ -49,7 +49,7 @@ class AlumnosController extends Controller
                 
                 Alumno::create([
                     'Nom_alum' => strtoupper($request->InputNombreAlumno),
-                    'Documentos' => strtoupper($filename),
+                    #'Documentos' => strtoupper($filename),
                     'Fk_ID_dependencia' => strtoupper($request->dependenciaId),
                     'Fk_ID_carreras' => strtoupper($request->carrerasId)
                 ]);
@@ -78,14 +78,14 @@ class AlumnosController extends Controller
         try{
 
             if($request->file('InputDocs') != ""){
-                $file= $request->file('InputDocs'); #obtenemos la nueva imagen
-                $filename= date('YmdHi').$file->getClientOriginalName(); #Renombramos la imagen con la fecha como nombre
-                $file-> move(public_path('public/docs'), $filename); #Movemos la imagen
+                #$file= $request->file('InputDocs'); #obtenemos la nueva imagen
+                #$filename= date('YmdHi').$file->getClientOriginalName(); #Renombramos la imagen con la fecha como nombre
+                #$file-> move(public_path('public/docs'), $filename); #Movemos la imagen
 
                 Alumno::where("ID_alum", $request->IDhidden)
                 ->update([
                     'Nom_alum' => strtoupper($request->InputNombreAlumnoEdit),
-                    'Documentos' => $filename,
+                    #'Documentos' => $filename,
                     'Fk_ID_dependencia' => strtoupper($request->InputDependenciaEdit),
                     'Fk_ID_carreras' => strtoupper($request->InputCarreraEdit)
                 ]);

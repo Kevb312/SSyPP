@@ -23,6 +23,7 @@
       <li><a href="alta.html">Procedimiento de alta</a> </li>
       <li><a href="depe.html">Dependencias</a> </li>
       <li><a href="unis.html">Universidades con convenio</a> </li>
+      <li><a href="{{route('registro')}}">Registro</a> </li>
       <li><a href="{{route('quejasComentarios')}}">Quejas y comentarios</a> </li>
       <li><a href={{ route('login') }}>Acceder</a> </li>
     </ul>

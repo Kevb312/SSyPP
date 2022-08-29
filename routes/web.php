@@ -30,7 +30,10 @@ Route::get('', 'PublicController@index')->name('index');
 Route::get('/licenciaturas', 'PublicController@viewLicenciaturas')->name('licenciaturas');
 #Quejas y comentarios
 Route::get('/quejas-comentarios', 'PublicController@viewQuejasComentarios')->name('quejasComentarios');
-
+#Registro
+Route::get('/registro', 'PublicController@viewRegistro')->name('registro');
+#Registro Guardar
+Route::post('/registro-save', 'PublicController@guardarRegistroAlumno')->name('guardarRegistroAlumno');
 /*
 |/////////////////////////
 | Rutas de administración

@@ -21,8 +21,12 @@
             <th>Nombre alumno</th>
             <th>Dependencia</th>
             <th>Carrera</th>
-            <th>Fecha creación</th>
-            <th>Ver documento</th>
+            <th>Universidad</th>
+            <th>Ver acta de nacimiento</th>
+            <th>Ver curp</th>
+            <th>Ver carta de presentación</th>
+            <th>Ver comprobante de domicilio</th>
+            <th>Ver boleta de calificaciones</th>
             <th>Editar</th>
             <th>Borrar</th>
         </tr>
@@ -44,9 +48,19 @@
                 {{$alumno->Nom_carrera}}           
             </td>
 
-            <td>{{$alumno->created_at}}</td>
+            <td id="universidad{{$alumno->ID_alum}}" value="{{$alumno->universidad}}">       
+                {{$alumno->universidad}}           
+            </td>
 
-            <td> <a href="{{asset('public/docs/'.$alumno->Documentos)}}" target="_blank"> Ver documento</a>  </td>
+            <td> <a href="{{asset('public/docs/'.$alumno->acta_nacimiento)}}" target="_blank"> Ver documento</a>  </td>
+
+            <td> <a href="{{asset('public/docs/'.$alumno->curp)}}" target="_blank"> Ver documento</a>  </td>
+
+            <td> <a href="{{asset('public/docs/'.$alumno->carta_presentacion)}}" target="_blank"> Ver documento</a>  </td>
+
+            <td> <a href="{{asset('public/docs/'.$alumno->comprobante_domicilio)}}" target="_blank"> Ver documento</a>  </td>
+
+            <td> <a href="{{asset('public/docs/'.$alumno->boleta_calificaciones)}}" target="_blank"> Ver documento</a>  </td>
             <td>
                 <a href="#" data-target="#EditModal"  data-toggle="modal" onclick="recibir({{$alumno->ID_alum}});">Editar</a>
             </td>
@@ -59,10 +73,15 @@
     <tfoot>
         <tr>
             <th>ID</th>
-            <th>Nombre dependencia</th>
-            <th>Nombre secretaria</th>
-            <th>Nombre subsecretaria</th>
-            <th>Fecha creación</th>
+            <th>Nombre alumno</th>
+            <th>Dependencia</th>
+            <th>Carrera</th>
+            <th>Universidad</th>
+            <th>Ver acta de nacimiento</th>
+            <th>Ver curp</th>
+            <th>Ver carta de presentación</th>
+            <th>Ver comprobante de domicilio</th>
+            <th>Ver boleta de calificaciones</th>
             <th>Editar</th>
             <th>Borrar</th>
         </tr>
@@ -87,11 +106,11 @@
                             <input type="text" class="form-control"  id="InputNombreAlumno" name="InputNombreAlumno" placeholder="Ingrese el nombre del alumno" required style="text-transform:uppercase">
                         </div>
 
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label for="InputFacultad">Documentos</label>
                             <input type="file" class="form-control"  id="inputDocumentos" name="inputDocumentos" accept="application/pdf">
 
-                        </div>
+                        </div>-->
 
                         <div class="form-group">
                             <label for="InputDependencia">Dependencia</label>
@@ -122,23 +141,23 @@
         </div>
     </div>
 
-<!--Js -->
-<script type="text/javascript">
-    function recibir(id)
-    {   console.log(id);
-        
+    <!--Js -->
+    <script type="text/javascript">
+        function recibir(id)
+        {   console.log(id);
+            
 
-        
+            
 
-        document.getElementById("IDAlumno").value = id;
-        document.getElementById("IDhidden").value = id;
-        
-        var nombreAlumno = document.getElementById("algo"+id).innerHTML;
+            document.getElementById("IDAlumno").value = id;
+            document.getElementById("IDhidden").value = id;
+            
+            var nombreAlumno = document.getElementById("algo"+id).innerHTML;
 
-        document.getElementById("InputNombreAlumnoEdit").value = nombreAlumno;
+            document.getElementById("InputNombreAlumnoEdit").value = nombreAlumno;
 
-    } 
-</script>
+        } 
+    </script>
 
 
 
@@ -167,11 +186,11 @@
                             <input type="text" value="" class="form-control" id="InputNombreAlumnoEdit" name="InputNombreAlumnoEdit"  placeholder="Ingrese el nombre del alumno" required>
                         </div>
 
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label for="InputDocs">Documentos</label>
                             <input type="file" class="form-control"  id="InputDocs" name="InputDocs" accept="application/pdf">
 
-                        </div>
+                        </div>-->
 
                         <div class="form-group">
                             <label for="InputDependenciaEdit">Dependencia</label>

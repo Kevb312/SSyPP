@@ -12,6 +12,12 @@ class Alumno extends Model
     protected $fillable = [
         'Nom_alum',
         'Documentos',
+        'acta_nacimiento',
+        'curp',
+        'carta_presentacion',
+        'comprobante_domicilio',
+        'boleta_calificaciones',
+        'universidad',
         'Fk_ID_dependencia',
         'Fk_ID_carreras'
     ];

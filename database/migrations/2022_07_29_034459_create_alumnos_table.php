@@ -17,7 +17,12 @@ class CreateAlumnosTable extends Migration
             $table->id('ID_alum');
             $table->string('Nom_alum');
             $table->string('Documentos');
-
+            $table->string('acta_nacimiento');
+            $table->string('curp');
+            $table->string('carta_presentacion');
+            $table->string('comprobante_domicilio');
+            $table->string('boleta_calificaciones');
+            $table->string('universidad');
             #Llave foranea con dependencias
             $table->unsignedBigInteger('Fk_ID_dependencia');
             $table->foreign('Fk_ID_dependencia')
